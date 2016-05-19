@@ -28,7 +28,6 @@ def index():
 def detail(r_name):
     try:
         detail = fetch_detail(r_name)
-        print(detail)
     except:
         abort(404)
     return render_template('detail.html', d=detail)
