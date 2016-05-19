@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+        <script src="{{ url_for('static', filename='js/map.js') }}" defer></script>
+    </head>
+    <body>
+        <a href='/'>Home</a>
+        <h1>{{ d['r_name'] }}</h1>
+        <h3>{{ d['info'] | safe }}</h3>
+        <div id="map" style="width:100%; height:300px;"></div>
+        <h2>Inspections</h2>
+        {% for inspection in d['inspections'] %}
+        <h3>{{ inspection['date'] }}: {{ inspection['type'] }} — Result: {{ inspection['result'] }}</h3>
+        <table border=1 cellpadding=7>
+            <tr>
+                <th>Violation</th>
+                <th>Points</th>
+            </tr>
+            {% for violation in inspection['violations'] %}
+            <tr>
+                <td>{{ violation[0] }}</td>
+                <td>{{ violation[1] }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td><strong>Total Score</strong></td>
+                <td>{{ inspection['score'] }}</td>
+            </tr>
+        </table>
+        {% endfor %}
+        <script type="text/javascript">
+            var data = null;
+            var latlong = [{{ d['lat'] }}, {{ d['lon'] }}]
+        </script>
+    </body>
+</html>

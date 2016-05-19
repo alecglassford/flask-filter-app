@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+        <script src="{{ url_for('static', filename='js/map.js') }}" defer></script>
+    </head>
+    <body>
+        <h1>King County Food Insepctions</h1>
+        <p>Note: The map will display a maximum of {{ MAP_MAX }} food establishments at once, to keep things at a reasonable speed.<br>
+            If your query results in more than {{ MAP_MAX }} restaurants, a random sample will be chosen.
+        <form action="" method="get">
+            <h2>Search and filter</h2>
+            <p>
+                Search for a food establishment (or by part of a restaurant name, e.g. 'sushi'):
+                <input type="text" name="query" value="{{ query }}">
+            </p>
+            <p>
+                Only show restaurants whose most recent score is above:
+                <input type="text" name="min_score" value="{{ min_score }}">
+                (Higher score means more violations)
+            </p>
+            <p>
+                Only show restaurants whose most recent evaluation is "Unsatisfactory":
+                <input type="checkbox" name="unsatisfactory"{{ ' checked' if ou }}>
+            </p>
+            <input style="clear:both" class="submit-button" type="submit" value="Submit">
+        </form>
+        <div id="map" style="width:95%; height:600px; margin:1em auto;"></div>
+        <script>
+            var data = {
+              "type": "FeatureCollection",
+              "features": [
+                {% for p in places %}
+                {
+                  "type": "Feature",
+                  "properties": {
+                    "full_name": "{{ p[0] }}<br>Most recent inspection: {{ p[1] }}<br>Most recent score: {{ p[2] }}",
+                    "id": "{{ p[0] }}",
+                    "status": "{{ p[1] }}"
+                  },
+                  "geometry": {
+                    "type": "Point",
+                    "coordinates": [{{ p[3] }}, {{ p[4] }}]
+                  }
+                }{% if not loop.last %},{% endif %}
+                {% endfor %}
+              ]
+            };
+            var latlong = null;
+        </script>
+    </body>
+</html>
