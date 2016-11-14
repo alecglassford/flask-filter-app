@@ -1,4 +1,5 @@
-# King County Food Establishment Inspections
+# [King County Food Establishment Inspections[(https://safe-dawn-87291.herokuapp.com/)]
+[*Check it out on the web*](https://safe-dawn-87291.herokuapp.com/)
 
 This project lets users explore [restaurant inspection data from King County](https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5) from January 1, 2015 to May 17, 2016. (I manually filtered it on the Socrata page. A future extension could be to dynamically fetch the last year of data when building the app.)
 
