@@ -5,8 +5,9 @@
         <script src="//cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
         <script src="{{ url_for('static', filename='js/map.js') }}" defer></script>
     </head>
-    <body>
+    <body style="margin: 4em;">
         <h1>King County Food Insepctions</h1>
+        <h3>based on <a href="https://data.kingcounty.gov/Health/Food-Establishment-Inspection-Data/f29f-zza5">King County food establishment inspection data</a> from January 2, 2015 through May 12, 2016</h3>
         <p>Note: The map will display a maximum of {{ MAP_MAX }} food establishments at once, to keep things at a reasonable speed.<br>
             If your query results in more than {{ MAP_MAX }} restaurants, a random sample will be chosen.
         <form action="" method="get">
@@ -27,6 +28,7 @@
             <input style="clear:both" class="submit-button" type="submit" value="Submit">
         </form>
         <div id="map" style="width:95%; height:600px; margin:1em auto;"></div>
+        <p>Made by <a href="https://twitter.com/alecglassford">Alec Glassford</a> for <a href="http://www.compjour.org/">Dan Nguyen's Computational Journalism class at Stanford</a>. <a href="https://github.com/alecglassford/flask-filter-app">Here's the source code.</a>
         <script>
             var data = {
               "type": "FeatureCollection",
